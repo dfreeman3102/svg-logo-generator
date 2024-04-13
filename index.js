@@ -1,6 +1,6 @@
 const inquirer = require("inquirer");
 const fs = require("fs");
-const renderShapeChoice = require("./lib/shapes.js")
+const renderShapeChoice = require("./lib/shapes.js");
 inquirer
   //prompts for all relevant user information
   .prompt([
@@ -38,10 +38,10 @@ inquirer
     },
   ])
   .then((data) => {
-    
-    const { characters, textColor, shape, shapeColor } = data; // Destructuring the user input data
-
-    const svgInfo = renderShapeChoice(shape, shapeColor, textColor, characters); // Calling the function with user input
+    // Destructuring the user input data
+    const { characters, textColor, shape, shapeColor } = data;
+    // Calling the function with user input
+    const svgInfo = renderShapeChoice(shape, shapeColor, textColor, characters);
 
     fs.writeFile("./examples/logo.svg", svgInfo, (err) => {
       if (err) {
