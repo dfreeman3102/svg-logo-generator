@@ -1,6 +1,6 @@
 const inquirer = require("inquirer");
 const fs = require("fs");
-
+const renderShapeChoice = require("./lib/shapes.js")
 inquirer
   //prompts for all relevant user information
   .prompt([
@@ -12,7 +12,7 @@ inquirer
         if (!input) {
           return "Cannot be empty!";
         }
-        if (input > 3) {
+        if (input.length > 3) {
           return "Cannot be greater than 3";
         }
         return true;
@@ -38,7 +38,10 @@ inquirer
     },
   ])
   .then((data) => {
-    const svgInfo = `${data.characters} ${data.textColor} ${data.shape} ${data.shapeColor}`;
+    
+    const { characters, textColor, shape, shapeColor } = data; // Destructuring the user input data
+
+    const svgInfo = renderShapeChoice(shape, shapeColor, textColor, characters); // Calling the function with user input
 
     fs.writeFile("./examples/logo.svg", svgInfo, (err) => {
       if (err) {
